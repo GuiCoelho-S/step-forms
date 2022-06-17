@@ -15,13 +15,13 @@ const Icons = {
 interface IStepIcons{
   value: keyof typeof Icons;
   label: string;
-  active: boolean;
+  //active: boolean;
 }
 
-const StepIcon: React.FC<IStepIcons> = ({ value, label, active }: IStepIcons) => {
+const StepIcon: React.FC<IStepIcons> = ({ value, label }: IStepIcons) => {
 
   return (
-    <S.Container state={active}>
+    <S.Container>
       {Icons[value]}
       <p>{label}</p>
     </S.Container>

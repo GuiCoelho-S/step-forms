@@ -55,7 +55,7 @@ export const Steps: React.FC = () => {
                 <StepIcon 
                   value={index as any} 
                   label={label} 
-                  active={isActiveStep(activeStep, index)}
+                 // active={isActiveStep(activeStep, index)}
                   />
               </StepLabel>
             </Step>
