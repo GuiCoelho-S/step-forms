@@ -1,9 +1,12 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useRef, useState } from 'react';
 import StepIcon from '../StepIcon';
 import * as S from './style';
 
-export const Steps: React.FC = () => {
+interface StepsProps {
+  children: ReactNode
+}
+export const Steps: React.FC<StepsProps> = ({ children }: StepsProps) => {
 
   const steps = ['user', 'documents', 'transport', 'buy', 'set'];
 
@@ -30,31 +33,28 @@ export const Steps: React.FC = () => {
 
   console.log(activeStep)
 
-  const isActiveStep = (currentStep: number, currentPage: number ) => {
+  const completedStep = (currentStep: number, keyStep: number) => {
 
-    if(currentPage && currentStep) return true
+    if(keyStep < currentStep) return true
     return false
   }
 
   return (
     <S.Container>
-      <p>dsji</p>
 
-
-
-      <Stepper activeStep={activeStep} connector={<S.ColorlibConnector />}>
+      <Stepper activeStep={activeStep} >
         {steps.map((label, index) => {
-    
-
-
+          
+          let completed = completedStep(activeStep, index)
           return (
             <Step key={label}
-              className={activeStep === index ? "step activeStep" : "step"}
+              className={activeStep >= index ? "step activeStep" : "step"}
             >
               <StepLabel StepIconComponent={StepIcon}>
                 <StepIcon 
-                  value={index as any} 
-                  label={label} 
+                label={label}
+                value={index as any}
+                status={completed} 
                  // active={isActiveStep(activeStep, index)}
                   />
               </StepLabel>
@@ -62,7 +62,7 @@ export const Steps: React.FC = () => {
           );
         })}
       </Stepper>
-
+      { children }
       <S.NavigationStep>
         <button
           onClick={() => navigatePage(activeStep, "previous")}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineUserAdd, AiFillCar, AiOutlineShoppingCart, AiOutlineCaretRight } from 'react-icons/ai';
+import { AiOutlineUserAdd, AiFillCar, AiOutlineShoppingCart, AiOutlineCaretRight, AiFillCheckCircle } from 'react-icons/ai';
 import { IoDocumentSharp } from 'react-icons/io5';
 
 import * as S from './style';
@@ -15,14 +15,15 @@ const Icons = {
 interface IStepIcons{
   value: keyof typeof Icons;
   label: string;
+  status: boolean;
   //active: boolean;
 }
 
-const StepIcon: React.FC<IStepIcons> = ({ value, label }: IStepIcons) => {
+const StepIcon: React.FC<IStepIcons> = ({ value, label, status }: IStepIcons) => {
 
   return (
     <S.Container>
-      {Icons[value]}
+      { status ? (<AiFillCheckCircle />) : (<>{Icons[value]}</>) }
       <p>{label}</p>
     </S.Container>
   );

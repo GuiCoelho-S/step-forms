@@ -6,7 +6,9 @@ import * as S from './style';
 const Form: React.FC = () => {
   return (
     <S.Container>
-      <Steps />
+      <Steps>
+        <p>sdjsudhu</p>
+      </Steps>
     </S.Container>
   );
 }
