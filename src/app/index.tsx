@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '../components/Form';
+import { FormComponent } from '../components/Form';
 import { GlobalStyle, Layout } from './style';
 // import { Container } from './styles';
 
@@ -8,7 +8,7 @@ export const App: React.FC = () => {
     <div>
       <GlobalStyle />
       <Layout>
-        <Form />
+        <FormComponent />
       </Layout>
     </div>
   )
