@@ -31,7 +31,6 @@ export const Steps: React.FC<StepsProps> = ({ children }: StepsProps) => {
 
   }
 
-  console.log(activeStep)
 
   const completedStep = (currentStep: number, keyStep: number) => {
 
