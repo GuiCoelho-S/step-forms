@@ -33,13 +33,19 @@ const allInputs = [
 export const FormComponent: React.FC = () => {
 
   const { formikHealth } = useHealthSchema();
- // const [showErrors, setShowErrors] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
     cpfMask(formikHealth.values.cpf, formikHealth)
   }, [formikHealth.values.cpf]);
 
-  console.log(formikHealth.values)
+  useEffect(() => {
+
+    if(showErrors){
+      setTimeout(() => setShowErrors(false), 1000)
+    }
+  }, [ showErrors ])
+
   return (
     <S.Container>
       <Steps>
@@ -60,13 +66,16 @@ export const FormComponent: React.FC = () => {
                     type={input.type}
                     placeholder={input.placeholder}
                     maxLength={input.max}
+
                   />
                 </div>
               ))
             }
           </>
 
-          <button type='submit'>Submit</button>
+          <button type='submit' onClick={() => {
+            
+            }}>Submit</button>
           <button type='button'>Verificar</button>
         </form>
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import * as S from './style';
 
 
@@ -17,9 +17,16 @@ interface TextFieldProps {
 export const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
 
   let key = props.id as keyof typeof props.formik.values
+  
+  
+  const [ isError, setIsError ] = useState(props.formik.errors[key])
+  
+  useEffect(() => {
+    console.log(props.formik.errors[key])
+  }, [ props.formik.errors[key] ])
 
   return (
-    <S.Container>
+    <S.Container isError={isError}>
       <label htmlFor={props.id}>{props.label}</label>
 
       {
