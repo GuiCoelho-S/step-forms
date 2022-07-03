@@ -19,7 +19,7 @@ const allInputs = [
     id: "cpf",
     placeholder: "ex: 111.111.111-11",
     type: "text",
-    max: 14,
+    maxLength: 14,
   },
   {
     kind: 'select',
