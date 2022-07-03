@@ -7,12 +7,12 @@ const healthYupShema = yup.object().shape({
   name: yup
     .string()
     .required("Nome é obrigatório")
-    .test('isCorrectName','Sobrenome é necessário', (name) => {
-      if(name){
+    .test('isCorrectName', 'Sobrenome é necessário', (name) => {
+      if (name) {
         name = name?.trim();
         let nameSplitted = name?.split(" ");
-        
-        return nameSplitted!.length >= 2;  
+
+        return nameSplitted!.length >= 2;
       };
       return false
     }),
@@ -28,7 +28,11 @@ const healthYupShema = yup.object().shape({
     }),
   adress: yup.string().required(),
   age: yup.number().required("O campo é obrigatório."),
-  professions: yup.string().oneOf(professions, 'suhdsudhu')
+  professions: yup.string().oneOf(professions, 'suhdsudhu'),
+  parcelTotal: yup.string(),
+  languages: yup
+    .array().of(yup.string())
+    .test("isEmptyLanguage", "Escolha pelo menos uma língua", (value) => value?.length !== 0)
 });
 
 export const useHealthSchema = () => {
@@ -39,9 +43,11 @@ export const useHealthSchema = () => {
       cpf: "",
       adress: "",
       age: "",
-      professions: professions[0]
+      professions: professions[0],
+      parcelTotal: "1x-360",
+      languages: []
     },
-    validateOnBlur:true,
+    validateOnBlur: true,
     validationSchema: healthYupShema,
 
     onSubmit: (values) => {
