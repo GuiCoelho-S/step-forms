@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { professions, useHealthSchema } from '../../hooks/useHealthSchema';
 import { cpfMask } from '../../utils/cpfValidate';
-import { TextField } from '../Input';
+import { TextField } from '../TextField';
 import { Steps } from '../Steps';
 import * as S from './style';
 
@@ -12,7 +12,6 @@ const allInputs = [
     id: 'name',
     placeholder: 'Nome sobrenome',
     type: 'text',
-    max: undefined,
   },
   {
     kind: 'input',
@@ -29,6 +28,63 @@ const allInputs = [
     values: professions,
     className: 'select'
   },
+  {
+    kind: 'radio',
+    label: 'Selecione o número total de parcelas',
+    id: 'parcelTotal',
+    options: [
+      {
+        label: '1x de 360,00 R$',
+        name: 'parcel',
+        value: '1x-360',
+        color: "#22f148"
+      },
+      {
+        label: '2x de 180,00 R$',
+        name: 'parcel',
+        value: '2x-180',
+        color: '#22f148'
+      },
+      {
+        label: '3x de 120,00 R$',
+        name: 'parcel',
+        value: '3x-120',
+        color: '#22f148'
+      },
+
+    ]
+  },
+  {
+    kind: 'checkbox',
+    label: 'Quais linguagens você domina?',
+    id: 'languages',
+    options: [
+      {
+        value: 'english',
+        label: 'Inglês'
+      },
+      {
+        value: 'portuguese',
+        label: 'Português'
+      },
+      {
+        value: 'spanish',
+        label: 'Espanhol'
+      },
+      {
+        value: 'french',
+        label: 'Francês'
+      },
+      {
+        value: 'german',
+        label: 'Alemão'
+      },
+      {
+        value: 'chinese',
+        label: 'Chinês'
+      }
+    ]
+  }
 ]
 export const FormComponent: React.FC = () => {
 
@@ -41,10 +97,10 @@ export const FormComponent: React.FC = () => {
 
   useEffect(() => {
 
-    if(showErrors){
+    if (showErrors) {
       setTimeout(() => setShowErrors(false), 1000)
     }
-  }, [ showErrors ])
+  }, [showErrors])
 
   return (
     <S.Container>
@@ -53,30 +109,18 @@ export const FormComponent: React.FC = () => {
           <>
             {
               allInputs.map((input, index) => (
-                
-                <div key={index + input.id}>
-                  <TextField
-                    formik={formikHealth}
 
-                    values={input.values}
-                    kind={input.kind}
-                    id={input.id}
-                    label={input.label}
-                    name={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    maxLength={input.max}
-
-                  />
+                <div key={index}>
+                  <TextField {...input} formik={formikHealth} />
                 </div>
               ))
             }
           </>
 
-          <button type='submit' onClick={() => {
-            
-            }}>Submit</button>
-          <button type='button'>Verificar</button>
+          <button type='submit'>Submit</button>
+          <button type='button' onClick={() => {
+            formikHealth.submitForm()
+          }}>Verificar</button>
         </form>
 
       </Steps>
